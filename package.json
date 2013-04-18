@@ -1,0 +1,11 @@
+{
+  "name": "tilestats",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "repository": "",
+  "author": "",
+  "dependencies": {
+    "metricsd": "~0.1.4"
+  }
+}
