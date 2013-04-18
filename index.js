@@ -30,7 +30,7 @@ process.stdin.on("data", function(chunk) {
       var tileset = record["@fields"]["request"].split(/[/?]/)[1];
 
       metrics.mark(tileset);
-      requestTime(tileset).update(record["@fields"]["request_time"] * 1000);
+      requestTime(tileset).update(Math.round(record["@fields"]["request_time"] * 1000));
     } catch (e) {
       pending = line;
     }
