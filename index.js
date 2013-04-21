@@ -29,8 +29,21 @@ process.stdin.on("data", function(chunk) {
 
       var tileset = record["@fields"]["request"].split(/[/?]/)[1];
 
-      metrics.mark(tileset);
-      requestTime(tileset).update(Math.round(record["@fields"]["request_time"] * 1000));
+      switch (record["@fields"]["status"]) {
+      case "200":
+        metrics.mark(tileset);
+        requestTime(tileset).update(Math.round(record["@fields"]["request_time"] * 1000));
+
+        break;
+
+      case "499":
+        metrics.mark(util.format("%s.timeout", tileset));
+
+        metrics.mark(tileset);
+        requestTime(tileset).update(Math.round(record["@fields"]["request_time"] * 1000));
+
+        break;
+      }
     } catch (e) {
       pending = line;
     }
