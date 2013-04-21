@@ -43,6 +43,14 @@ process.stdin.on("data", function(chunk) {
         requestTime(tileset).update(Math.round(record["@fields"]["request_time"] * 1000));
 
         break;
+
+      case "500":
+        metrics.mark(util.format("%s.error", tileset));
+
+        metrics.mark(tileset);
+        requestTime(tileset).update(Math.round(record["@fields"]["request_time"] * 1000));
+
+        break;
       }
     } catch (e) {
       pending = line;
